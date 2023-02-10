@@ -23,8 +23,7 @@
 **Prof. Khare, Prof. Tiwari and**
 **Teaching Assistant : Ankita Ma’am**
 
-**Date**
-**February 10, 2023**
+**Date** - **February 10, 2023**
 
 ### **Index**
 
