@@ -1,6 +1,9 @@
 ### Note : Refer to the attached PDF file for better formatting and readability.
 
-![](logo1.png)
+<p align="center">
+  <img src="bin/logo1.png" alt="Logo" width="200" height="200">
+</p>
+
 
 ### IT314 Software Engineering
 
