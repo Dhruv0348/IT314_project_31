@@ -168,12 +168,14 @@ This app can allow canteen staff to add new food items to the menu, modify exist
 
 ### **6. Use-Case Diagram:** 
 
+![use-case-diagram](https://user-images.githubusercontent.com/67496808/218147866-cacff3e8-6b4d-468a-8a28-b468b74c3598.png)
 
-The use-case diagram for the canteen automation system is shown on the next page.
 
-![](ucd.png)**7. SDLC model - Agile SDLC Model**
 
-![](agile.png)
+### **7. SDLC model  Agile SDLC Model**
+
+![image](https://user-images.githubusercontent.com/67496808/218148138-a67ed267-bc49-47da-96d6-976fd7282902.png)
+
 
 After a thorough examination of the requirements and features of our Canteen Automation System, we have determined that the **Agile Software Development model** is the most suitable software development life cycle model for this project. The following are the reasons behind our choice of the Agile model:
 
