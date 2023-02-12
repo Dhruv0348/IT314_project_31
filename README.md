@@ -143,7 +143,6 @@ This app can allow canteen staff to add new food items to the menu, modify exist
 **The System being talked about in this section is the canteen automation system.**
 
 1. **Performance:** The system should work faster and the response time of all the functionalities should be less than 400 ms and the application should open in less than 6-8 seconds. Time elapsed between the submission of order by user and the order received by canteen manager should be as minimum as possible.
-1. **Capacity:** The system must be able to handle at least around 500 users at a time.
 1. **Scalability:** The system should be easily scalable. The system should be able to respond to the change in the user base and if the need arises, capacity of the system should be scalable. In case of lower demands, the system should decrease the capacity dynamically to lower the costs of the operations.
 1. **Reliability:** The system must be able to handle a large number of users (students and faculty) and orders without any performance issues or downtime and must be able to scale up or down according to the needs of the cafeteria owners and customers.
 1. **Regulatory -** The system must comply with all the regulations and laws regarding online payments and privacy and security of personal information.
@@ -153,7 +152,7 @@ This app can allow canteen staff to add new food items to the menu, modify exist
 1. **Security -** The system must be able to keep the personal information of the users secure by encrypting the user data to prevent unauthorized access to their account and personal information such as debit/credit card details and other sensitive information.
 1. **Manageability -** The system must be able to manage a large number of users and orders without any performance issues or downtime and must be able to scale up or down according to the needs of the cafeteria owners and customers.
 1. **Data integrity -** The system  must be able to keep the data secure and prevent unauthorized access to the data.
-1. **Capacity -** The system must be able to handle a large number of users and orders without any performance issues or downtime and must be able to scale up or down according to the needs of the cafeteria owners and customers.
+1. **Capacity -** The system must be able to handle a large number of users (around 500) and orders without any performance issues or downtime and must be able to scale up or down according to the needs of the cafeteria owners and customers.
 1. **Availability -** The system must be available all the time so that the cafeteria owners and customers can use the system whenever they want. Multiple deployments can be made of the system for lowering the downtime of the system.
 1. **Usability -** The system must be easy to use and navigate so that the cafeteria owners and customers can use the system more easily and efficiently.
 1. **Interoperability -** The system must be able to work with different payment systems such as debit cards, credit cards and UPI.
