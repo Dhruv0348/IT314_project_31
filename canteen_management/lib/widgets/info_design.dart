@@ -18,15 +18,41 @@ class InfoDesignWidget extends StatefulWidget {
 }
 
 class _InfoDesignWidgetState extends State<InfoDesignWidget> {
-  deleteMenu(String menuID) {
-    FirebaseFirestore.instance
-        .collection("sellers")
-        .doc(sharedPreferences!.getString("uid"))
-        .collection("menus")
-        .doc(menuID)
-        .delete();
+deleteMenu(String menuID) async {
+    bool? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning'),
+          content: Text('Are you sure you want to delete this menu?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: Text('Delete'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
 
-    Fluttertoast.showToast(msg: "Menu Deleted");
+    if (result == true) {
+      FirebaseFirestore.instance
+          .collection("sellers")
+          .doc(sharedPreferences!.getString("uid"))
+          .collection("menus")
+          .doc(menuID)
+          .delete();
+
+      Fluttertoast.showToast(msg: "Menu Deleted");
+    }
   }
 
   @override
