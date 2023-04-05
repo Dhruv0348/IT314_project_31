@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 50),
               Center(
                 child: Text(
-                  'Restaurant Login',
+                  'Canteen Owner Login',
                   style: GoogleFonts.lato(
                     textStyle: const TextStyle(
                         fontSize: 25,

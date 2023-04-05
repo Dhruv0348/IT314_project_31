@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -13,7 +12,6 @@ import 'package:canteen_management/widgets/error_dialog.dart';
 import 'package:canteen_management/widgets/loading_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../global/global.dart';
 import '../widgets/header_widget.dart';
 import 'login.dart';
@@ -32,65 +30,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+  // TextEditingController locationController = TextEditingController();
 
-//image picker
+  //image picker
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
-//location
-  Position? position;
-  List<Placemark>? placeMarks;
-
-//address name variable
-  String completeAddress = "";
-
-//seller image url
+  //seller image url
   String sellerImageUrl = "";
 
-//function for getting current location
-  Future<Position?> getCurrenLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    Position newPosition = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-
-    position = newPosition;
-
-    placeMarks = await placemarkFromCoordinates(
-      position!.latitude,
-      position!.longitude,
-    );
-
-    Placemark pMark = placeMarks![0];
-
-    completeAddress =
-        '${pMark.thoroughfare}, ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.country}';
-
-    locationController.text = completeAddress;
-  }
-
-//function for getting image
+  //function for getting image
   Future<void> _getImage() async {
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -99,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-//Form Validation
+  //Form Validation
   Future<void> signUpFormValidation() async {
     //checking if user selected image
     if (imageXFile == null) {
@@ -122,8 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (confirmpasswordController.text.isNotEmpty &&
             emailController.text.isNotEmpty &&
             nameController.text.isNotEmpty &&
-            phoneController.text.isNotEmpty &&
-            locationController.text.isNotEmpty) {
+            phoneController.text.isNotEmpty) {
           //start uploading image
           showDialog(
             context: context,
@@ -133,21 +81,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
               );
             },
           );
+          // debug print
+          print("image selected");
 
           String fileName = DateTime.now().millisecondsSinceEpoch.toString();
           fStorage.Reference reference = fStorage.FirebaseStorage.instance
               .ref()
               .child("sellers")
               .child(fileName);
+          print("image uploaded");
           fStorage.UploadTask uploadTask =
               reference.putFile(File(imageXFile!.path));
           fStorage.TaskSnapshot taskSnapshot =
               await uploadTask.whenComplete(() {});
+          print("image saved to storage");
           await taskSnapshot.ref.getDownloadURL().then((url) {
             sellerImageUrl = url;
 
+            print("image url: $sellerImageUrl");
             // save info to firestore
             AuthenticateSellerAndSignUp();
+            print("image saved to firestore");
           });
         }
         //if there is empty place show this message
@@ -156,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             context: context,
             builder: (c) {
               return ErrorDialog(
-                message: "Please fill the required info for Registration. ",
+                message: "Please fill the required fields for Registration. ",
               );
             },
           );
@@ -208,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-//saving seller information to firestore
+  //saving seller information to firestore
   Future saveDataToFirestore(User currentUser) async {
     FirebaseFirestore.instance.collection("sellers").doc(currentUser.uid).set(
       {
@@ -217,11 +171,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "sellerName": nameController.text.trim(),
         "sellerAvatarUrl": sellerImageUrl,
         "phone": phoneController.text.trim(),
-        "address": completeAddress,
         "status": "approved",
         "earnings": 0.0,
-        "lat": position!.latitude,
-        "lng": position!.longitude,
       },
     );
 
@@ -334,30 +285,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: phoneController,
                       hintText: "Phone nummber",
                       isObsecre: false,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomTextField(
-                          data: Icons.my_location,
-                          controller: locationController,
-                          hintText: "Cafe/Restorant Address",
-                          isObsecre: false,
-                          enabled: false,
-                        ),
-                        Center(
-                          child: IconButton(
-                            onPressed: () {
-                              getCurrenLocation();
-                            },
-                            icon: const Icon(
-                              Icons.location_on,
-                              size: 40,
-                            ),
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
                     ),
                   ],
                 ),

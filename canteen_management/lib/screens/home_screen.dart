@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: FlexibleSpaceBar(
                   title: Text(
-                    'Sellers App',
+                    'CANTEEN OWNER',
                     style: GoogleFonts.lato(
                       textStyle: const TextStyle(
                           fontSize: 15,
