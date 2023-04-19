@@ -8,6 +8,7 @@ import 'package:canteen_management/global/global.dart';
 import 'package:canteen_management/screens/home_screen.dart';
 import 'package:canteen_management/widgets/progress_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart' as storageRef;
+// import 'package:flutter_icons/flutter_icons.dart';
 
 import '../widgets/error_dialog.dart';
 
@@ -22,8 +23,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
-  TextEditingController shortInfoController = TextEditingController();
-  TextEditingController titleController = TextEditingController();
+  TextEditingController ItemTitleController = TextEditingController();
+  TextEditingController CategoryController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   bool uploading = false;
 
@@ -310,10 +312,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: shortInfoController,
+                  controller: ItemTitleController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Info",
+                      hintText: "Menu Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -331,10 +333,35 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: titleController,
+                  controller: CategoryController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Title",
+                      hintText: "Menu Category",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none),
+                ),
+              ),
+            ),
+            const Divider(
+              color: Colors.white,
+              thickness: 2,
+            ),
+            // Add Price Field Here
+            ListTile(
+              leading: const Text(
+                '₹',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24.0,
+                ),                  
+              ),
+              title: SizedBox(
+                width: 250,
+                child: TextField(
+                  controller: priceController,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: const InputDecoration(
+                      hintText: "Menu Price",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -353,16 +380,17 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 //clearing textfields
   clearMenuUploadFrom() {
     setState(() {
-      shortInfoController.clear();
-      titleController.clear();
+      ItemTitleController.clear();
+      CategoryController.clear();
+      priceController.clear();
       imageXFile = null;
     });
   }
 
   validateUploadForm() async {
     if (imageXFile != null) {
-      if (shortInfoController.text.isNotEmpty &&
-          titleController.text.isNotEmpty) {
+      if (ItemTitleController.text.isNotEmpty &&
+          CategoryController.text.isNotEmpty && priceController.text.isNotEmpty ) {
         // if its true set uploading to true and start process indicator
         setState(() {
           uploading = true;
@@ -427,8 +455,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       {
         "menuID": uniqueIdName,
         "sellerUID": sharedPreferences!.getString("uid"),
-        "menuInfo": shortInfoController.text.toString(),
-        "menuTitle": titleController.text.toString(),
+        "menuInfo": ItemTitleController.text.toString(),
+        "menuTitle": CategoryController.text.toString(),
+        "menuPrice": priceController.text.toString(),
         "publishedDate": DateTime.now(),
         "status": "available",
         "thumbnailUrl": downloadUrl,
