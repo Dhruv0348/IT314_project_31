@@ -45,7 +45,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
               end: FractionalOffset(5.0, -1.0),
               colors: [
                 Color(0xFFFFFFFF),
-                Color(0xFFFAC898),
+                Color.fromARGB(255, 196, 228, 159),
               ],
             ),
           ),
@@ -73,7 +73,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
             end: FractionalOffset(4.0, -1.0),
             colors: [
               Color(0xFFFFFFFF),
-              Color(0xFFFAC898),
+              Color.fromARGB(255, 152, 250, 172),
             ],
           ),
         ),

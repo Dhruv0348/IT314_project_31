@@ -27,6 +27,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   TextEditingController CategoryController = TextEditingController();
   TextEditingController priceController = TextEditingController();
 
+  num priceOfItem = 0;
+
   bool uploading = false;
 
   //unique id for menus
@@ -102,13 +104,13 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                 child: const Text(
                   "Add New Menu",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.orange),
+                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 188, 232, 209)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
