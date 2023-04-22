@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,7 +10,6 @@ import 'package:canteen_management/global/global.dart';
 import 'package:canteen_management/screens/home_screen.dart';
 import 'package:canteen_management/widgets/progress_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart' as storageRef;
-// import 'package:flutter_icons/flutter_icons.dart';
 
 import '../widgets/error_dialog.dart';
 
@@ -23,11 +24,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
-  TextEditingController ItemTitleController = TextEditingController();
-  TextEditingController CategoryController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-
-  num priceOfItem = 0;
+  TextEditingController shortInfoController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
 
   bool uploading = false;
 
@@ -104,13 +102,13 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                 child: const Text(
                   "Add New Menu",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 188, 232, 209)),
+                      MaterialStateProperty.all<Color>(Colors.orange),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -314,10 +312,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: ItemTitleController,
+                  controller: shortInfoController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Title",
+                      hintText: "Menu Info",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -335,35 +333,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: CategoryController,
+                  controller: titleController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Category",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none),
-                ),
-              ),
-            ),
-            const Divider(
-              color: Colors.white,
-              thickness: 2,
-            ),
-            // Add Price Field Here
-            ListTile(
-              leading: const Text(
-                '₹',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24.0,
-                ),                  
-              ),
-              title: SizedBox(
-                width: 250,
-                child: TextField(
-                  controller: priceController,
-                  style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                      hintText: "Menu Price",
+                      hintText: "Menu Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -382,17 +355,16 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 //clearing textfields
   clearMenuUploadFrom() {
     setState(() {
-      ItemTitleController.clear();
-      CategoryController.clear();
-      priceController.clear();
+      shortInfoController.clear();
+      titleController.clear();
       imageXFile = null;
     });
   }
 
   validateUploadForm() async {
     if (imageXFile != null) {
-      if (ItemTitleController.text.isNotEmpty &&
-          CategoryController.text.isNotEmpty && priceController.text.isNotEmpty ) {
+      if (shortInfoController.text.isNotEmpty &&
+          titleController.text.isNotEmpty) {
         // if its true set uploading to true and start process indicator
         setState(() {
           uploading = true;
@@ -408,7 +380,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         showDialog(
           context: context,
           builder: (c) {
-            return ErrorDialog(
+            return const ErrorDialog(
               message: "Please write title and info for menu.",
             );
           },
@@ -418,7 +390,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       showDialog(
         context: context,
         builder: (c) {
-          return ErrorDialog(
+          return const ErrorDialog(
             message: "Please pick an image for menu.",
           );
         },
@@ -457,9 +429,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       {
         "menuID": uniqueIdName,
         "sellerUID": sharedPreferences!.getString("uid"),
-        "menuInfo": ItemTitleController.text.toString(),
-        "menuTitle": CategoryController.text.toString(),
-        "menuPrice": priceController.text.toString(),
+        "menuInfo": shortInfoController.text.toString(),
+        "menuTitle": titleController.text.toString(),
         "publishedDate": DateTime.now(),
         "status": "available",
         "thumbnailUrl": downloadUrl,
@@ -476,6 +447,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(imageXFile == null){
+      print("imageXFile is null");
+    }
+
     return imageXFile == null ? defaultScreen() : menusUploadFormScreen();
   }
 }

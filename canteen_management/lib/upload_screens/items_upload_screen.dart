@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,13 +14,23 @@ import '../models/menus.dart';
 import '../widgets/error_dialog.dart';
 
 class ItemsUploadScreen extends StatefulWidget {
-  final Menus? model;
+  final Menus model;
 
-  ItemsUploadScreen({this.model});
+  const ItemsUploadScreen({Key? key, required this.model}) : super(key: key);
 
   @override
   _ItemsUploadScreenState createState() => _ItemsUploadScreenState();
 }
+
+
+// class ItemsUploadScreen extends StatefulWidget {
+//   final Menus model;
+//   const ItemsUploadScreen({Key? key, required this.model}) : super(key: key);
+
+//   @override
+//   _ItemsUploadScreenState createState() => _ItemsUploadScreenState();
+// }
+
 
 class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   XFile? imageXFile;
@@ -45,7 +57,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
               end: FractionalOffset(5.0, -1.0),
               colors: [
                 Color(0xFFFFFFFF),
-                Color.fromARGB(255, 196, 228, 159),
+                Color(0xFFFAC898),
               ],
             ),
           ),
@@ -73,7 +85,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
             end: FractionalOffset(4.0, -1.0),
             colors: [
               Color(0xFFFFFFFF),
-              Color.fromARGB(255, 152, 250, 172),
+              Color(0xFFFAC898),
             ],
           ),
         ),
@@ -393,6 +405,11 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   }
 
   validateUploadForm() async {
+
+    if(widget.model == null){
+      print("model is null in validateUploadForm");
+      return;
+    }
     if (imageXFile != null) {
       if (shortInfoController.text.isNotEmpty &&
           titleController.text.isNotEmpty &&
@@ -413,7 +430,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         showDialog(
           context: context,
           builder: (c) {
-            return ErrorDialog(
+            return const ErrorDialog(
               message: "Please write title and info for menu.",
             );
           },
@@ -423,7 +440,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       showDialog(
         context: context,
         builder: (c) {
-          return ErrorDialog(
+          return const ErrorDialog(
             message: "Please pick an image for menu.",
           );
         },
@@ -443,12 +460,17 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
     storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
 
     String downloadingUrl = await taskSnapshot.ref.getDownloadURL();
-
+    print("This is url: $downloadingUrl");
     return downloadingUrl;
   }
 
 //saving menu information to firebase
   saveInfo(String downloadUrl) {
+    if (widget.model == null) {
+      print("model is null in saveInfo");
+      return;
+    }
+
     final ref = FirebaseFirestore.instance
         //under sellers collection
         .collection("sellers")
@@ -460,7 +482,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         .doc(widget.model!.menuID)
         .collection("items");
 
-//information pass to firebase
+    // information pass to firebase
     ref.doc(uniqueIdName).set(
       {
         "itemID": uniqueIdName,
@@ -508,6 +530,9 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (imageXFile == null) {
+      print("imageXFile is null3");
+    }
     return imageXFile == null ? defaultScreen() : itemsUploadFormScreen();
   }
 }

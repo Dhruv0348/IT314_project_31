@@ -118,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen>
                     opacity: animateCafeText ? 1 : 0,
                     duration: const Duration(seconds: 1),
                     child: Text(
-                      'CANTEEN OWNER'.toUpperCase(),
+                      'Canteen Management App'.toUpperCase(),
                       style: GoogleFonts.lato(
                         fontSize: 27,
                         fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class _BottomPart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Canteen Management Simplified',
+              'Find The Food for You',
               style: GoogleFonts.lato(
                 fontSize: 27,
                 fontWeight: FontWeight.bold,
@@ -161,7 +161,8 @@ class _BottomPart extends StatelessWidget {
             ),
             const SizedBox(height: 30.0),
             Text(
-              'We make it simple to manage customer orders. ',
+              'We make it simple to find a food for you. '
+              'enter your address and let us do the rest.',
               style: GoogleFonts.lato(
                 fontSize: 15,
                 fontWeight: FontWeight.normal,
@@ -188,7 +189,7 @@ class _BottomPart extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => LoginScreen())));
+                              builder: ((context) => const LoginScreen())));
                     },
                     child: Container(
                       height: 85.0,

@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: FlexibleSpaceBar(
                   title: Text(
-                    'CANTEEN OWNER',
+                    'Canteen Management App',
                     style: GoogleFonts.lato(
                       textStyle: const TextStyle(
                           fontSize: 15,
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             // this is where seller info is displayed
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: SellerInfo(),
             ),
             StreamBuilder<QuerySnapshot>(

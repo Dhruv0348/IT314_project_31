@@ -9,7 +9,7 @@ import '../models/items.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
   final Items? model;
-  ItemDetailsScreen({this.model});
+  const ItemDetailsScreen({Key? key, this.model}) : super(key: key);
 
   @override
   _ItemDetailsScreenState createState() => _ItemDetailsScreenState();
@@ -174,7 +174,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                             ),
                           ),
                           Text(
-                            "\$" + widget.model!.price.toString(),
+                            "\₹" + widget.model!.price.toString(),
                             style: GoogleFonts.lato(
                               textStyle: const TextStyle(
                                 fontSize: 30,

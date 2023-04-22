@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:canteen_management/global/global.dart';
 
 class SellerInfo extends StatefulWidget {
+  const SellerInfo({Key? key}) : super(key: key);
+
   @override
   State<SellerInfo> createState() => _SellerInfoState();
 }
@@ -40,7 +42,7 @@ class _SellerInfoState extends State<SellerInfo> {
           end: FractionalOffset(5.0, -6.0),
           colors: [
             Color(0xFFFFFFFF),
-            Color.fromARGB(255, 78, 255, 155),
+            Color(0xFFFAC898),
           ],
         ),
       ),
@@ -67,17 +69,15 @@ class _SellerInfoState extends State<SellerInfo> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 149, 220, 42).withOpacity(0.4),
+                      color: Colors.amber.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       children: [
-                        Container(
-                          child: Image.asset(
-                            "images/restaurant.png",
-                            height: 30,
-                          ),
+                        Image.asset(
+                          "images/restaurant.png",
+                          height: 30,
                         ),
                         const SizedBox(width: 5),
                         Text(
@@ -168,11 +168,9 @@ class _SellerInfoState extends State<SellerInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Image.asset(
-                  "images/menu.png",
-                  height: 30,
-                ),
+              Image.asset(
+                "images/menu.png",
+                height: 30,
               ),
               Text(
                 "Menus",

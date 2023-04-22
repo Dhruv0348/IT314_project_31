@@ -10,12 +10,13 @@ class OrderCardDesign extends StatelessWidget {
   final String? orderID;
   final List<String>? seperateQuantitiesList;
 
-  OrderCardDesign({
+  const OrderCardDesign({
+    Key? key,
     this.itemCount,
     this.data,
     this.orderID,
     this.seperateQuantitiesList,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,7 @@ Widget placedOrderDesignWidget(
               ),
               const SizedBox(width: 10),
               const Text(
-                "\$ ",
+                "\₹ ",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.blue,
