@@ -36,7 +36,7 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("orders")
-              .where("status", isEqualTo: "normal")
+              .where("status", whereIn: ["normal", "cooked"])
               .where("sellerUID",
                   isEqualTo: sharedPreferences!.getString("uid"))
               .snapshots(),
@@ -58,15 +58,61 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                             .get(),
                         builder: (c, snap) {
                           return snap.hasData
-                              ? OrderCardDesign(
-                                  itemCount: snap.data!.docs.length,
-                                  data: snap.data!.docs,
-                                  orderID: snapshot.data!.docs[index].id,
-                                  seperateQuantitiesList:
-                                      separateOrderItemQuantities(
-                                          (snapshot.data!.docs[index].data()!
+                              ? Column(
+                                  children: [
+                                    OrderCardDesign(
+                                      itemCount: snap.data!.docs.length,
+                                      data: snap.data!.docs,
+                                      orderID: snapshot.data!.docs[index].id,
+                                      status: (snapshot.data!.docs[index]
+                                              .data()!
+                                          as Map<String, dynamic>)["status"],
+                                      seperateQuantitiesList:
+                                          separateOrderItemQuantities((snapshot
+                                                      .data!.docs[index]
+                                                      .data()!
                                                   as Map<String, dynamic>)[
                                               "productIDs"]),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            FirebaseFirestore.instance
+                                                .collection("orders")
+                                                .doc(snapshot
+                                                    .data!.docs[index].id)
+                                                .update({"status": "cooked"});
+                                          },
+                                          child: Text("Cooked"),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .resolveWith<Color>(
+                                              (Set<MaterialState> states) {
+                                                if (states.contains(
+                                                    MaterialState.pressed))
+                                                  return Colors.green;
+                                                return Color.fromARGB(255, 5, 255, 80);
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            FirebaseFirestore.instance
+                                                .collection("orders")
+                                                .doc(snapshot
+                                                    .data!.docs[index].id)
+                                                .update({"status": "ended"});
+                                          },
+                                          child: Text("Ended"),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 )
                               : Center(child: circularProgress());
                         },

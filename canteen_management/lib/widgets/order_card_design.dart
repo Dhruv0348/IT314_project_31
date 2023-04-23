@@ -9,12 +9,14 @@ class OrderCardDesign extends StatelessWidget {
   final List<DocumentSnapshot>? data;
   final String? orderID;
   final List<String>? seperateQuantitiesList;
+  final String? status;
 
   const OrderCardDesign({
     Key? key,
     this.itemCount,
     this.data,
     this.orderID,
+    this.status,
     this.seperateQuantitiesList,
   }) : super(key: key);
 
@@ -133,7 +135,7 @@ Widget placedOrderDesignWidget(
                 "x ",
                 style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 14,
+                  fontSize: 20,
                 ),
               ),
               Expanded(
