@@ -306,16 +306,16 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             ),
             ListTile(
               leading: const Icon(
-                Icons.perm_device_information,
+                Icons.title,
                 color: Colors.black,
               ),
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: shortInfoController,
+                  controller: titleController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Info",
+                      hintText: "Menu Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -327,16 +327,16 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             ),
             ListTile(
               leading: const Icon(
-                Icons.title,
+                Icons.perm_device_information,
                 color: Colors.black,
               ),
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: titleController,
+                  controller: shortInfoController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Menu Title",
+                      hintText: "Menu Info",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),

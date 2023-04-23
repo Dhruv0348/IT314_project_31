@@ -31,6 +31,7 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       title: Text(
+        title ??
         "Item Details",
         style: GoogleFonts.lato(
           textStyle: const TextStyle(
