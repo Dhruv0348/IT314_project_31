@@ -1,11 +1,12 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../screens/home_screen.dart';
 
 class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   String? title;
+
   SimpleAppBar({Key? key, this.bottom, this.title}) : super(key: key);
 
   @override
@@ -44,6 +45,18 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
       iconTheme: const IconThemeData(
         color: Colors.black,
         size: 35,
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          // Navigator.of(context).pop(); // go back to previous screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+        },
       ),
     );
   }

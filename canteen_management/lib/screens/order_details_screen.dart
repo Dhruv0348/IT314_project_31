@@ -22,16 +22,50 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   String orderStatus = "";
   String orderByUser = "";
   String sellerId = "";
+  String UserID = "";
+  String UserName = "";
+  String UserEmail = "";
 
-  getOrderInfo() {
+
+  void getUserInfo() async {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(orderByUser)
+        .get()
+        .then((DocumentSnapshot) {
+      // UserID = DocumentSnapshot.data()!["uid"].toString();
+      // UserName = DocumentSnapshot.data()!["name"].toString();
+      // UserEmail = DocumentSnapshot.data()!["email"].toString();
+
+      setState(() {
+        UserID = DocumentSnapshot.data()!["uid"].toString();
+        UserName = DocumentSnapshot.data()!["name"].toString();
+        UserEmail = DocumentSnapshot.data()!["email"].toString();
+      });
+
+    });
+  }
+
+  void getOrderInfo() async{
+    print("Order ID is ${widget.orderID}")  ;
+
     FirebaseFirestore.instance
         .collection("orders")
         .doc(widget.orderID)
         .get()
         .then((DocumentSnapshot) {
-      orderStatus = DocumentSnapshot.data()!["status"].toString();
-      orderByUser = DocumentSnapshot.data()!["orderBy"].toString();
-      sellerId = DocumentSnapshot.data()!["sellerUID"].toString();
+      
+      setState(() {
+        orderStatus = DocumentSnapshot.data()!["status"].toString();
+        orderByUser = DocumentSnapshot.data()!["orderBy"].toString();
+        sellerId = DocumentSnapshot.data()!["sellerUID"].toString();
+      });
+      print("User is $orderByUser");
+      print("Seller is $sellerId");
+      print("Order Status is $orderStatus");
+
+
+      getUserInfo();
     });
   }
 
@@ -40,6 +74,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     super.initState();
 
     getOrderInfo();
+
+    // getUserInfo();
   }
 
   @override
@@ -73,7 +109,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "€  " + dataMap["totalAmount"].toString(),
+                              "₹  " + dataMap["totalAmount"].toString(),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -99,36 +135,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 fontSize: 16, color: Colors.grey),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Order by: " + "$UserName",
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Email: " + "$UserEmail",
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
+                          ),
+                        ),
                         const Divider(
                           thickness: 4,
-                        ),
-                        orderStatus != "ended"
-                            ? Image.asset("images/packing.png")
-                            : Image.asset("images/delivered.jpg"),
-                        const Divider(
-                          thickness: 4,
-                        ),
-                        FutureBuilder<DocumentSnapshot>(
-                          future: FirebaseFirestore.instance
-                              .collection("users")
-                              .doc(orderByUser)
-                              .collection("userAddress")
-                              .doc(dataMap["addressID"])
-                              .get(),
-                          builder: (c, snapshot) {
-                            return snapshot.hasData
-                                ? ShipmentAddressDesign(
-                                    model: Address.fromJson(snapshot.data!
-                                        .data()! as Map<String, dynamic>),
-                                    orderStatus: orderStatus,
-                                    orderId: widget.orderID,
-                                    sellerId: sellerId,
-                                    orderByUser: orderByUser,
-                                  )
-                                : Center(
-                                    child: circularProgress(),
-                                  );
-                          },
                         ),
                       ],
                     )

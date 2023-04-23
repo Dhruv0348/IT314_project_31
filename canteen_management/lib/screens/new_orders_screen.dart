@@ -55,7 +55,6 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                             .where("sellerUID",
                                 whereIn: (snapshot.data!.docs[index].data()!
                                     as Map<String, dynamic>)["uid"])
-                            .orderBy("publishedDate", descending: true)
                             .get(),
                         builder: (c, snap) {
                           return snap.hasData

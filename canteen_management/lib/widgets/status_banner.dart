@@ -1,3 +1,4 @@
+import 'package:canteen_management/screens/new_orders_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home_screen.dart';
@@ -36,7 +37,8 @@ class StatusBanner extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const HomeScreen())));
+                      builder: ((context) => NewOrdersScreen())));
+                      // builder: (context) => NewOrdersScreen()))
             },
             child: const Icon(
               Icons.arrow_back,
