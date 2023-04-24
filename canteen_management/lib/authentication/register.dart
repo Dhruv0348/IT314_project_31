@@ -338,29 +338,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: "Phone nummber",
                       isObsecre: false,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomTextField(
-                          data: Icons.my_location,
-                          controller: locationController,
-                          hintText: "Cafe/Restorant Address",
-                          isObsecre: false,
-                          enabled: false,
+                    CustomTextField(
+                      data: Icons.my_location,
+                      controller: locationController,
+                      hintText: "Cafe/Restorant Address",
+                      isObsecre: false,
+                      enabled: false,
+                    ),
+                    Center(
+                      child: IconButton(
+                        onPressed: () {
+                          getCurrenLocation();
+                        },
+                        icon: const Icon(
+                          Icons.location_on,
+                          size: 40,
                         ),
-                        Center(
-                          child: IconButton(
-                            onPressed: () {
-                              getCurrenLocation();
-                            },
-                            icon: const Icon(
-                              Icons.location_on,
-                              size: 40,
-                            ),
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
+                        color: Colors.red,
+                      ),
                     ),
                   ],
                 ),
