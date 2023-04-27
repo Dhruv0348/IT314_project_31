@@ -51,6 +51,7 @@ class _SellerInfoState extends State<SellerInfo> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
+              key: const Key('canteenInfo'),
               "Canteen Info".toUpperCase(),
               style: GoogleFonts.lato(
                 textStyle: const TextStyle(
