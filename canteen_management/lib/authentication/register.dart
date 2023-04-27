@@ -306,6 +306,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   children: [
                     CustomTextField(
+                      key: const Key('nameTextField'),
                       data: Icons.person,
                       controller: nameController,
                       hintText: "Name",
