@@ -95,10 +95,31 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    //delete menu
-                    deleteMenu(widget.model!.menuID!);
+IconButton(
+                  onPressed: () async {
+                    // Show warning before deleting
+                    bool? shouldDelete = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Delete Menu'),
+                        content:
+                            Text('Are you sure you want to delete this menu?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                    if (shouldDelete == true) {
+                      // Delete menu
+                      deleteMenu(widget.model!.menuID!);
+                    }
                   },
                   icon: const Icon(
                     Icons.delete,

@@ -186,15 +186,38 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Padding(
+      Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 30,
                         vertical: 20,
                       ),
                       child: InkWell(
-                        onTap: () {
-                          //delete item
-                          deleteItem(widget.model!.itemID!);
+                        onTap: () async {
+                          // Show warning before deleting
+                          bool? shouldDelete = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('Delete Item'),
+                              content: Text(
+                                  'Are you sure you want to delete this item?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: Text('Delete'),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (shouldDelete == true) {
+                            // Delete item
+                            deleteItem(widget.model!.itemID!);
+                          }
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
