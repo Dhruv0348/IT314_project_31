@@ -6,8 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:canteen_management/screens/home_screen.dart';
 import 'package:canteen_management/widgets/custom_text_field.dart';
@@ -34,64 +34,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+  // TextEditingController locationController = TextEditingController();
 
 //image picker
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
 //location
-  Position? position;
-  List<Placemark>? placeMarks;
+  // Position? position;
+  // List<Placemark>? placeMarks;
 
 //address name variable
   String completeAddress = "";
 
 //seller image url
   String sellerImageUrl = "";
-
-//function for getting current location
-  Future<Position?> getCurrenLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    Position newPosition = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-
-    position = newPosition;
-
-    placeMarks = await placemarkFromCoordinates(
-      position!.latitude,
-      position!.longitude,
-    );
-
-    Placemark pMark = placeMarks![0];
-
-    completeAddress =
-        '${pMark.thoroughfare}, ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.country}';
-
-    locationController.text = completeAddress;
-    return null;
-  }
 
 //function for getting image
   Future<void> _getImage() async {
@@ -125,8 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (confirmpasswordController.text.isNotEmpty &&
             emailController.text.isNotEmpty &&
             nameController.text.isNotEmpty &&
-            phoneController.text.isNotEmpty &&
-            locationController.text.isNotEmpty) {
+            phoneController.text.isNotEmpty ) {
           //start uploading image
           showDialog(
             context: context,
@@ -223,8 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "address": completeAddress,
         "status": "approved",
         "earnings": 0.0,
-        "lat": position!.latitude,
-        "lng": position!.longitude,
+
       },
     );
 
@@ -335,33 +290,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomTextField(
                       data: Icons.phone_android_outlined,
                       controller: phoneController,
-                      hintText: "Phone nummber",
+                      hintText: "Phone number",
                       isObsecre: false,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomTextField(
-                          data: Icons.my_location,
-                          controller: locationController,
-                          hintText: "Cafe/Restorant Address",
-                          isObsecre: false,
-                          enabled: false,
-                        ),
-                        Center(
-                          child: IconButton(
-                            onPressed: () {
-                              getCurrenLocation();
-                            },
-                            icon: const Icon(
-                              Icons.location_on,
-                              size: 40,
-                            ),
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
-                    ),
+
                   ],
                 ),
               ),

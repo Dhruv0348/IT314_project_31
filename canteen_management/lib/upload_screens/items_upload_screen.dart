@@ -308,16 +308,16 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
             ),
             ListTile(
               leading: const Icon(
-                Icons.perm_device_information,
+                Icons.title,
                 color: Colors.black,
               ),
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: shortInfoController,
+                  controller: titleController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Info",
+                      hintText: "Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),
@@ -329,16 +329,16 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
             ),
             ListTile(
               leading: const Icon(
-                Icons.title,
+                Icons.perm_device_information,
                 color: Colors.black,
               ),
               title: SizedBox(
                 width: 250,
                 child: TextField(
-                  controller: titleController,
+                  controller: shortInfoController,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
-                      hintText: "Title",
+                      hintText: "Info",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
                 ),

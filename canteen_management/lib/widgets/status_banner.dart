@@ -34,11 +34,8 @@ class StatusBanner extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => NewOrdersScreen())));
-                      // builder: (context) => NewOrdersScreen()))
+              Navigator.pop(context);
+
             },
             child: const Icon(
               Icons.arrow_back,
@@ -48,7 +45,7 @@ class StatusBanner extends StatelessWidget {
           const SizedBox(width: 20),
           Text(
             orderStatus == "ended"
-                ? "Parcel Delivered $message"
+                ? "Order Collected $message"
                 : "Order Placed $message",
             style: const TextStyle(color: Colors.white),
           ),

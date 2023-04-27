@@ -87,7 +87,7 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                           style: GoogleFonts.lato(
                             textStyle: const TextStyle(
                                 fontSize: 15,
-                                fontFamily: "Acme",
+                                fontFamily: "Montserrat",
                                 color: Colors.grey),
                           ),
                         ),
