@@ -313,24 +313,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isObsecre: false,
                     ),
                     CustomTextField(
+                      key: const Key('emailTextField'),
                       data: Icons.email,
                       controller: emailController,
                       hintText: "Email",
                       isObsecre: false,
                     ),
                     CustomTextField(
+                      key: const Key('passwordTextField'),
                       data: Icons.lock,
                       controller: passwordController,
                       hintText: "Password",
                       isObsecre: true,
                     ),
                     CustomTextField(
+                      key: const Key('confirmPasswordTextField'),
                       data: Icons.lock,
                       controller: confirmpasswordController,
                       hintText: "Confirm password",
                       isObsecre: true,
                     ),
                     CustomTextField(
+                      key: const Key('phoneTextField'),
                       data: Icons.phone_android_outlined,
                       controller: phoneController,
                       hintText: "Phone nummber",
