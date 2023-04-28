@@ -95,7 +95,7 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                     ),
                   ],
                 ),
-IconButton(
+                IconButton(
                   onPressed: () async {
                     // Show warning before deleting
                     bool? shouldDelete = await showDialog<bool>(

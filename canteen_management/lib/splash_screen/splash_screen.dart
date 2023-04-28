@@ -161,8 +161,7 @@ class _BottomPart extends StatelessWidget {
             ),
             const SizedBox(height: 30.0),
             Text(
-              'We make it simple to find a food for you. '
-              'enter your address and let us do the rest.',
+              'We make it simple to sell food for you. ',
               style: GoogleFonts.lato(
                 fontSize: 15,
                 fontWeight: FontWeight.normal,

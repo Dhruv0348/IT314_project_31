@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "/Users/divya/Documents/Github/IT314_project_31/canteen_management/linux"
+  "cmake.sourceDirectory": "/Users/divya/Documents/Github/IT314_project_31/canteen_management/linux",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

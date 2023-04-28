@@ -318,6 +318,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                       hintText: "Menu Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
+                  maxLength: 15,
                 ),
               ),
             ),
@@ -339,6 +340,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                       hintText: "Menu Info",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
+                  maxLength: 25,
                 ),
               ),
             ),
@@ -447,7 +449,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(imageXFile == null){
+    if (imageXFile == null) {
       print("imageXFile is null");
     }
 

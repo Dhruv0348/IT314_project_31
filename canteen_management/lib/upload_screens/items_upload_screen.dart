@@ -22,7 +22,6 @@ class ItemsUploadScreen extends StatefulWidget {
   _ItemsUploadScreenState createState() => _ItemsUploadScreenState();
 }
 
-
 // class ItemsUploadScreen extends StatefulWidget {
 //   final Menus model;
 //   const ItemsUploadScreen({Key? key, required this.model}) : super(key: key);
@@ -30,7 +29,6 @@ class ItemsUploadScreen extends StatefulWidget {
 //   @override
 //   _ItemsUploadScreenState createState() => _ItemsUploadScreenState();
 // }
-
 
 class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   XFile? imageXFile;
@@ -320,6 +318,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
                       hintText: "Title",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
+                  maxLength: 15,
                 ),
               ),
             ),
@@ -341,6 +340,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
                       hintText: "Info",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
+                  maxLength: 35,
                 ),
               ),
             ),
@@ -362,6 +362,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
                       hintText: "Description",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
+                  maxLength: 200,
                 ),
               ),
             ),
@@ -405,16 +406,17 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   }
 
   validateUploadForm() async {
-
-    if(widget.model == null){
+    if (widget.model == null) {
       print("model is null in validateUploadForm");
       return;
     }
     if (imageXFile != null) {
+      // Also check if price is less than 1000
       if (shortInfoController.text.isNotEmpty &&
           titleController.text.isNotEmpty &&
           descriptionController.text.isNotEmpty &&
-          priceController.text.isNotEmpty) {
+          priceController.text.isNotEmpty &&
+          int.parse(priceController.text) < 1000) {
         // if its true set uploading to true and start process indicator
         setState(() {
           uploading = true;
@@ -426,7 +428,19 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         //save info to firestore
 
         saveInfo(downloadUrl);
-      } else {
+      } 
+      // else if price > 1000
+      else if (int.parse(priceController.text) > 1000) {
+        showDialog(
+          context: context,
+          builder: (c) {
+            return const ErrorDialog(
+              message: "Price can't be more than Rs. 1000",
+            );
+          },
+        );
+      }
+      else {
         showDialog(
           context: context,
           builder: (c) {
