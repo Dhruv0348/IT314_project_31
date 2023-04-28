@@ -1,3 +1,4 @@
+import 'package:canteen_management/screens/qr_code_scanner.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +19,21 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar(
-        title: "New Orders",
+      appBar: AppBar(
+        title: const Text('New Orders'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.qr_code_scanner),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyQRScanner(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
