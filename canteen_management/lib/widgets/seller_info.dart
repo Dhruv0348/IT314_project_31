@@ -98,6 +98,7 @@ class _SellerInfoState extends State<SellerInfo> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: Text(
+                      key: const Key('sellerEmail'),
                       sharedPreferences!.getString("email")!,
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(
@@ -124,6 +125,7 @@ class _SellerInfoState extends State<SellerInfo> {
                       Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
+                          key: const Key('sellerEarnongs'),
                           "\₹" + sellerTotalEarnings.toString(),
                           style: GoogleFonts.lato(
                             textStyle: TextStyle(
@@ -170,6 +172,7 @@ class _SellerInfoState extends State<SellerInfo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
+                key: const Key("menuImage"),
                 "images/menu.png",
                 height: 30,
               ),
