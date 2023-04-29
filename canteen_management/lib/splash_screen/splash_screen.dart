@@ -151,17 +151,19 @@ class _BottomPart extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Find The Food for You',
-              style: GoogleFonts.lato(
-                fontSize: 27,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Center(
+              child: Text(
+                'Canteen Management Made Easy',
+                style: GoogleFonts.lato(
+                  fontSize: 27,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
             const SizedBox(height: 30.0),
             Text(
-              'We make it simple to sell food for you. ',
+              'Platform for selling your food and managing your canteen.',
               style: GoogleFonts.lato(
                 fontSize: 15,
                 fontWeight: FontWeight.normal,

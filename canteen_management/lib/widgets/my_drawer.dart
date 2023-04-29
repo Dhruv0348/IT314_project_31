@@ -194,15 +194,36 @@ class MyDrawer extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      firebaseAuth.signOut().then((value) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (c) => const LoginScreen(),
-                          ),
-                        );
-                        _controller.clear();
-                      });
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Sign Out'),
+                            content: const Text(
+                                'Are you sure you want to sign out?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  firebaseAuth.signOut().then((value) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (c) => const LoginScreen(),
+                                      ),
+                                    );
+                                    _controller.clear();
+                                  });
+                                },
+                                child: const Text('Sign Out'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                   ),
                   const Divider(

@@ -13,8 +13,6 @@ class HistoryScreen extends StatefulWidget {
 
   @override
   _HistoryScreenState createState() => _HistoryScreenState();
-
-  build(param0) {}
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
@@ -22,7 +20,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        key: const Key('historyOfOrders'),
         title: "History of Orders",
       ),
       body: Container(
@@ -43,6 +40,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               .where("status", whereIn: ["ended"])
               .where("sellerUID",
                   isEqualTo: sharedPreferences!.getString("uid"))
+              .orderBy("orderTime", descending: true)
               .snapshots(),
           builder: (c, snapshot) {
             return snapshot.hasData
@@ -59,6 +57,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             .where("sellerUID",
                                 whereIn: (snapshot.data!.docs[index].data()!
                                     as Map<String, dynamic>)["uid"])
+                            .orderBy("publishedDate", descending: true)                              
                             .get(),
                         builder: (c, snap) {
                           return snap.hasData

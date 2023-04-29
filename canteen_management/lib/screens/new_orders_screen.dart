@@ -10,12 +10,12 @@ import '../widgets/simple_app_bar.dart';
 
 class NewOrdersScreen extends StatefulWidget {
   const NewOrdersScreen({Key? key}) : super(key: key);
-
   @override
   _NewOrdersScreenState createState() => _NewOrdersScreenState();
 }
 
 class _NewOrdersScreenState extends State<NewOrdersScreen> {
+  String status = "normal";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +51,10 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
           stream: FirebaseFirestore.instance
               .collection("orders")
               .where("status", whereIn: ["normal", "cooked"])
-              .where("sellerUID",
-                  isEqualTo: sharedPreferences!.getString("uid"))
+              .where("sellerUID", isEqualTo: sharedPreferences!.getString("uid"))
+              .orderBy("orderTime", descending: true)
               .snapshots(),
+              
           builder: (c, snapshot) {
             return snapshot.hasData
                 ? ListView.builder(
@@ -69,8 +70,12 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                             .where("sellerUID",
                                 whereIn: (snapshot.data!.docs[index].data()!
                                     as Map<String, dynamic>)["uid"])
+                            .orderBy("publishedDate", descending: true)
                             .get(),
                         builder: (c, snap) {
+                          status = (snapshot.data!.docs[index].data()!
+                              as Map<String, dynamic>)["status"];
+
                           return snap.hasData
                               ? Column(
                                   children: [
@@ -92,29 +97,44 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            FirebaseFirestore.instance
-                                                .collection("orders")
-                                                .doc(snapshot
-                                                    .data!.docs[index].id)
-                                                .update({"status": "cooked"});
-                                          },
-                                          child: Text("Cooked"),
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty
-                                                    .resolveWith<Color>(
-                                              (Set<MaterialState> states) {
-                                                if (states.contains(
-                                                    MaterialState.pressed))
-                                                  return Colors.green;
-                                                return Color.fromARGB(
-                                                    255, 5, 255, 80);
-                                              },
-                                            ),
-                                          ),
-                                        ),
+                                        status == "normal"
+                                            ? ElevatedButton(
+                                                onPressed: () {
+                                                  status = "cooked";
+                                                  FirebaseFirestore.instance
+                                                      .collection("orders")
+                                                      .doc(snapshot
+                                                          .data!.docs[index].id)
+                                                      .update(
+                                                          {"status": "cooked"});
+                                                },
+                                                child: Text("Cooked"),
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .resolveWith<Color>(
+                                                    (Set<MaterialState>
+                                                        states) {
+                                                      if (states.contains(
+                                                          MaterialState
+                                                              .pressed))
+                                                        return Color.fromARGB(
+                                                            255, 208, 214, 208);
+                                                      return Color.fromARGB(
+                                                          255, 5, 255, 80);
+                                                    },
+                                                  ),
+                                                ),
+                                              )
+                                            : ElevatedButton(
+                                                onPressed: null,
+                                                child: Text('Cooked'),
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.grey),
+                                                ),
+                                              ),
                                         ElevatedButton(
                                           onPressed: () {
                                             FirebaseFirestore.instance
@@ -123,7 +143,7 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                                                     .data!.docs[index].id)
                                                 .update({"status": "ended"});
                                           },
-                                          child: Text("Ended"),
+                                          child: Text("Collected"),
                                         ),
                                       ],
                                     ),

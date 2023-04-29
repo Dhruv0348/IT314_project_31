@@ -428,7 +428,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         //save info to firestore
 
         saveInfo(downloadUrl);
-      } 
+      }
       // else if price > 1000
       else if (int.parse(priceController.text) > 1000) {
         showDialog(
@@ -439,8 +439,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
             );
           },
         );
-      }
-      else {
+      } else {
         showDialog(
           context: context,
           builder: (c) {
