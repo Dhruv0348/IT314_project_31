@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: FlexibleSpaceBar(
                   title: Text(
+                    key: const Key('canteenManagementApp'),
                     'Canteen Management App',
                     style: GoogleFonts.lato(
                       textStyle: const TextStyle(

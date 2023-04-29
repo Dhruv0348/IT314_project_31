@@ -13,6 +13,8 @@ class HistoryScreen extends StatefulWidget {
 
   @override
   _HistoryScreenState createState() => _HistoryScreenState();
+
+  build(param0) {}
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
@@ -20,6 +22,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
+        key: const Key('historyOfOrders'),
         title: "History of Orders",
       ),
       body: Container(
