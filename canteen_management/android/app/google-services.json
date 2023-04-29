@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "246971442416",
+    "project_id": "canteen-management-8c75e",
+    "storage_bucket": "canteen-management-8c75e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246971442416:android:c008ef02d16caac6e6ce35",
+        "android_client_info": {
+          "package_name": "com.example.canteen_app_daiict"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246971442416-ku2ipmfohjkbqis66m7rhuppghqj4jd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3L63mv7LJntyQnytW1cqI753bT2YiF2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246971442416-ku2ipmfohjkbqis66m7rhuppghqj4jd1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246971442416-5csjii7heub7d8s8r955vdkk3rs5jlu0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.canteenManagement"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246971442416:android:6dd52be546061baee6ce35",
+        "android_client_info": {
+          "package_name": "com.example.canteen_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246971442416-6ua11b98d5jbejc4p26mpgsqsaagfhm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.canteen_management",
+            "certificate_hash": "d50d647a6894f8569126179a7d73f0173aaac75e"
+          }
+        },
+        {
+          "client_id": "246971442416-ku2ipmfohjkbqis66m7rhuppghqj4jd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3L63mv7LJntyQnytW1cqI753bT2YiF2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246971442416-ku2ipmfohjkbqis66m7rhuppghqj4jd1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246971442416-5csjii7heub7d8s8r955vdkk3rs5jlu0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.canteenManagement"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
