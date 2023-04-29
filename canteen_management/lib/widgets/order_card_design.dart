@@ -106,7 +106,7 @@ Widget placedOrderDesignWidget(
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontFamily: "Montserrat",
+                    fontFamily: "Acme",
                   ),
                 ),
               ),
@@ -144,7 +144,7 @@ Widget placedOrderDesignWidget(
                 style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 30,
-                  fontFamily: "Montserrat",
+                  fontFamily: "Acme",
                 ),
               ))
             ],
