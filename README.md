@@ -18,7 +18,7 @@
 | -: | :- |
 |**202001271 Dhruv Patel**|**202001415 Pinak Trivedi**|
 |**202001403 Jaimin Baurasi**|**202001420 Divya Patel**|
-|**202001405 Kenil Vaghasiya**|**202001430 Aryan Patel**|
+|**202001405 Kenil Vaghasiya**|**202001430 Aryan Shah**|
 |**202001407 Karan Patel**|**202001432 Aditya Jadeja**|
 |**202001465 Jaykumar Navadiya**|
 
